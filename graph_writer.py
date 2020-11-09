@@ -1,6 +1,6 @@
 '''Script to import sim_telarray GCT-S simulations,
 optionally plot them, and export them to hdf5 files. Designed to mix
-proton, gamma and now electron datafiles together for CTANN training/testing.
+proton, gamma datafiles together for CTANN training/testing.
 Needs ctapipe, remember to use source activate cta-dev in advance.
 This version includes randomization of the two datasets
  and the storing of parameterized waveforms.
