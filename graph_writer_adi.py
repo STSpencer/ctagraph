@@ -62,9 +62,9 @@ signal.signal(signal.SIGSEGV, sig_handler)
 
 # Run Options
 # Import raw sim_telarray output files
-runno = 20
-gamma_data = "/store/adisims/gamma/run" + str(runno) + ".simtel.gz"
-hadron_data = "/store/adisims/proton/run"+str(runno)+".simtel.gz"
+runno = 1
+gamma_data = "/store/adisims2/gamma/run" + str(runno) + ".simtel.gz"
+hadron_data = "/store/adisims2/proton/run"+str(runno)+".simtel.gz"
 
 '''
 from ctapipe.io import event_source
