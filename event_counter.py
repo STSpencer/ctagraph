@@ -20,7 +20,7 @@ for runno in range(1,20):
   count = len(evfinder)
 
 #Print number of events
-  print("There are %d events in run%d", count, runno)
+  print("There are %d events in run%d" % (count, runno))
 
 #Protons
 print("Proton files:")
@@ -35,4 +35,4 @@ for runno in range(1,20):
   evfinder = EventSeeker(reader = file)
   count = len(evfinder)
 
-  print("There are %d events in run%d", count, runno)
+  print("There are %d events in run%d" % (count, runno))
