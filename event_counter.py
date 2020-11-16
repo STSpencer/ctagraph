@@ -13,7 +13,7 @@ file = SimTelEventSource(input_url=gamma_data,back_seekable=True)
 #Loop through events in the file
 #count = 0
 evfinder = EventSeeker(reader = file)
-print(type(evfinder))
+print(len(evfinder))
 #for event in evfinder:
 #    count += 1
 
