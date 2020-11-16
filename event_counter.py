@@ -17,7 +17,10 @@ for runno in range(1,20):
   file = SimTelEventSource(input_url=gamma_data,back_seekable=True)
 
   evfinder = EventSeeker(reader = file)
-  count = len(evfinder)
+  count = 0
+#  count = len(evfinder)
+  for event in evfinder:
+    count += 1
 
 #Print number of events
   print("There are %d events in run%d" % (count, runno))
@@ -33,6 +36,9 @@ for runno in range(1,20):
   file = SimTelEventSource(input_url=proton_data,back_seekable=True)
 
   evfinder = EventSeeker(reader = file)
-  count = len(evfinder)
+  count = 0
+#  count = len(evfinder)
+  for even in evfinder:
+    count += 1
 
   print("There are %d events in run%d" % (count, runno))
