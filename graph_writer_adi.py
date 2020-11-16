@@ -177,7 +177,7 @@ for fileno in np.arange(1, no_files + 1):
         if count % 1000 == 0:
             print(count)
 
-        if plotev == True and gammaflag >0:
+        if plotev == True and gammaflag == 0:
             break
 
         to_matlab['id'].append(count)
@@ -224,6 +224,10 @@ for fileno in np.arange(1, no_files + 1):
     print(startev, endev)
 
     for event in evfinder[startev:endev]:
+     
+        if gammaflag == 1:
+           break
+        
         caliber = CameraCalibrator()
         caliber(event)
         if count % 1000 == 0:
