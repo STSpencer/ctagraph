@@ -159,7 +159,7 @@ for fileno in np.arange(1, no_files + 1):
         'tel_integrated': [],
         'raw_image': []}
 
-    smallfile_name = output_filename + "run" + str(runno) + "_" + str(fileno) + + "_gammaflag_" + str(gammaflag) + '.hdf5'
+    smallfile_name = output_filename + "run" + str(runno) + "_" + str(fileno) + "_gammaflag_" + str(gammaflag) + '.hdf5'
 
     gamma_source = SimTelEventSource(input_url=gamma_data,back_seekable=True)
 
