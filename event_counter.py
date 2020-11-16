@@ -6,16 +6,33 @@ import ctapipe
 from ctapipe.io import EventSeeker
 from ctapipe.io import SimTelEventSource
 
-#Open file
-gamma_data = "/store/adisims/gamma/run1.simtel.gz"
-file = SimTelEventSource(input_url=gamma_data,back_seekable=True)
+#Gammas
+print("Gamma files:")
 
-#Loop through events in the file
-#count = 0
-evfinder = EventSeeker(reader = file)
-print(len(evfinder))
-#for event in evfinder:
-#    count += 1
+#Open file
+
+for runno in range(1,20):
+
+  gamma_data = "/store/adisims/gamma/run" + str(runno) + ".simtel.gz"
+  file = SimTelEventSource(input_url=gamma_data,back_seekable=True)
+
+  evfinder = EventSeeker(reader = file)
+  count = len(evfinder)
 
 #Print number of events
-#print("There are %d events in run%d", count, runno)
+  print("There are %d events in run%d", count, runno)
+
+#Protons
+print("Proton files:")
+
+#Open file
+
+for runno in range(1,20):
+
+  proton_data = "/store/adisims/proton/run" + str(runno) + ".simtel.gz"
+  file = SimTelEventSource(input_url=proton_data,back_seekable=True)
+
+  evfinder = EventSeeker(reader = file)
+  count = len(evfinder)
+
+  print("There are %d events in run%d", count, runno)
