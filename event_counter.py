@@ -11,9 +11,9 @@ print("Gamma files:")
 
 #Open file
 
-for runno in range(1,20):
+for runno in range(1,2):
 
-  gamma_data = "/store/adisims/gamma/run" + str(runno) + ".simtel.gz"
+  gamma_data = "/store/adisims2/gamma/run" + str(runno) + ".simtel.gz"
   file = SimTelEventSource(input_url=gamma_data,back_seekable=True)
 
   evfinder = EventSeeker(reader = file)
@@ -30,9 +30,9 @@ print("Proton files:")
 
 #Open file
 
-for runno in range(1,20):
+for runno in range(1,2):
 
-  proton_data = "/store/adisims/proton/run" + str(runno) + ".simtel.gz"
+  proton_data = "/store/adisims2/proton/run" + str(runno) + ".simtel.gz"
   file = SimTelEventSource(input_url=proton_data,back_seekable=True)
 
   evfinder = EventSeeker(reader = file)
