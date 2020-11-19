@@ -64,7 +64,7 @@ signal.signal(signal.SIGSEGV, sig_handler)
 # Import raw sim_telarray output files
 runno = 1
 gamma_data = "/store/adisims2/gamma/run" + str(runno) + ".simtel.gz"
-hadron_data = "/store/adisims2/proton/run"+str(runno)+".simtel.gz"
+hadron_data = "/store/adisims2/proton/run" + str(runno) + ".simtel.gz"
 
 '''
 from ctapipe.io import event_source
@@ -77,6 +77,7 @@ cal(event)
 geom = event.inst.subarray.tel[1].camera
 disp = CameraDisplay(geom, image= event.dl1.tel[1].image) 
 plt.show()
+plt.savefig()
 
 '''
 gammaflag = int(input("Plot hadrons (0) or gammas (1)?: "))  # Should be 0 to plot hadrons or 1 for gammas.
@@ -87,7 +88,7 @@ output_filename = '/store/adisims2/Data/hdftest'  # HDF5 files output name.
 
 
 # Max number of events to read in for each of gammas/protons for training.
-maxcount = 100
+maxcount = 500
 no_files = 10  # Number of files in which to store events
 filerat = maxcount / no_files
 
