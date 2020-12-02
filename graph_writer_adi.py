@@ -258,7 +258,7 @@ for fileno in np.arange(1, no_files + 1):
             squared[row, col] = integ_charges
             integrated[tel_id - 1, :, :] = squared
 
-            if plotev==True and gammaflag==0:
+            if plotev==True and gammaflag==1:
                 plt.imshow(squared)
                 plt.show()
                 plt.savefig('proton' + str(runno) + '.png')
