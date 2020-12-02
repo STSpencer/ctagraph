@@ -178,7 +178,7 @@ for fileno in np.arange(1, no_files + 1):
         if count % 1000 == 0:
             print(count)
 
-        if plotev == True and gammaflag == 0:
+        if plotev == True and gammaflag > 0:
             break
 
         to_matlab['id'].append(count)
@@ -204,7 +204,7 @@ for fileno in np.arange(1, no_files + 1):
             squared[row, col] = integ_charges
             integrated[tel_id - 1, :, :] = squared
 
-            if plotev==True and gammaflag==1:
+            if plotev==True and gammaflag == 0:
                 fig = plt.figure()
                 plt.imshow(squared)
                 plt.show()
@@ -227,9 +227,6 @@ for fileno in np.arange(1, no_files + 1):
     print(startev, endev)
 
     for event in evfinder[startev:endev]:
-     
-        if gammaflag == 1:
-           break
         
         caliber = CameraCalibrator()
         caliber(event)
