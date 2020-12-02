@@ -205,6 +205,7 @@ for fileno in np.arange(1, no_files + 1):
             integrated[tel_id - 1, :, :] = squared
 
             if plotev==True and gammaflag==1:
+                fig = plt.figure()
                 plt.imshow(squared)
                 plt.show()
                 plt.savefig('gamma' + str(runno) + '.png')
@@ -259,6 +260,7 @@ for fileno in np.arange(1, no_files + 1):
             integrated[tel_id - 1, :, :] = squared
 
             if plotev==True and gammaflag==1:
+                fig = plt.figure()
                 plt.imshow(squared)
                 plt.show()
                 plt.savefig('proton' + str(runno) + '.png')
@@ -321,5 +323,6 @@ for fileno in np.arange(1, no_files + 1):
 endtime=time.time()
 runtime=endtime-starttime
 print('Time for 10 events to be written', runtime)
+fig = plt.figure()
 plt.show()
 plt.savefig('finalfig' + str(runno) + '.png')
