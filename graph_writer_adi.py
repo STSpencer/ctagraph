@@ -88,8 +88,8 @@ output_filename = '/store/adisims2/Data/hdftest'  # HDF5 files output name.
 
 
 # Max number of events to read in for each of gammas/protons for training.
-maxcount = 500
-no_files = 10  # Number of files in which to store events
+maxcount = 200000
+no_files = 200  # Number of files in which to store events
 filerat = maxcount / no_files
 
 print('Filerat', filerat)
