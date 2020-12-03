@@ -80,7 +80,7 @@ plt.show()
 plt.savefig()
 
 '''
-gammaflag = int(input("Plot gammas (0) or hadrons (1)?: "))  # Should be 0 to plot gammas or 1 for hadrons.
+gammaflag = 0  # Should be 0 to plot gammas or 1 for hadrons.
 plotev = True  # Whether or not to make animation plots for one single event.
 event_plot = 0  # Min event number to plot
 chan = 0  # PM Channel to use.
