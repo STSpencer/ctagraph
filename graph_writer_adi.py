@@ -207,8 +207,8 @@ for fileno in np.arange(1, no_files + 1):
             if plotev==True and gammaflag == 0:
                 fig = plt.figure()
                 plt.imshow(squared)
-                plt.show()
                 plt.savefig('gamma' + str(runno) + '.png')
+                plt.show()
 
 
 
@@ -259,8 +259,8 @@ for fileno in np.arange(1, no_files + 1):
             if plotev==True and gammaflag == 1:
                 fig = plt.figure()
                 plt.imshow(squared)
-                plt.show()
                 plt.savefig('proton' + str(runno) + '.png')
+                plt.show()
 
         # Send to hdf5 writer lists.
         # List of triggered telescopes
@@ -321,5 +321,5 @@ endtime=time.time()
 runtime=endtime-starttime
 print('Time for 10 events to be written', runtime)
 fig = plt.figure()
-plt.show()
 plt.savefig('finalfig' + str(runno) + '.png')
+plt.show()
