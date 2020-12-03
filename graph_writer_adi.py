@@ -81,7 +81,7 @@ plt.savefig()
 
 '''
 gammaflag = int(input("Plot gammas (0) or hadrons (1)?: "))  # Should be 0 to plot gammas or 1 for hadrons.
-plotev = False  # Whether or not to make animation plots for one single event.
+plotev = True  # Whether or not to make animation plots for one single event.
 event_plot = 0  # Min event number to plot
 chan = 0  # PM Channel to use.
 output_filename = '/store/adisims2/Data/hdftest'  # HDF5 files output name.
