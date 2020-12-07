@@ -192,7 +192,7 @@ history = []
 for epoch in range(epochs):
 
     print("epoch", epoch, "\n")
-    progbar = tensorflow.keras.utils.Progbar(N_samples, verbose=1)  # create fancy keras progressbar
+    progbar = tensorflow.keras.utils.Progbar(N_samples, verbose=2)  # create fancy keras progressbar
     for i in range(N_samples // batch_size):
 
         beg = i*batch_size
@@ -209,7 +209,7 @@ fig.savefig("./history_mnist.png")
 
 print('Evaluating model.\n')  # Evaluate model
 
-progbar = tensorflow.keras.utils.Progbar(test_samples, verbose=1)  # create fancy keras progressbar
+progbar = tensorflow.keras.utils.Progbar(test_samples, verbose=2)  # create fancy keras progressbar
 for a in range(test_samples // batch_size):
 
     beg = a*batch_size
