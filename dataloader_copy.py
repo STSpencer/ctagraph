@@ -1,15 +1,12 @@
 import h5py
-
 import numpy as np
-
 import glob
-
 import sys
 
 filelist = sorted(glob.glob('/home/ir-spen1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
 
 
-filelist=filelist[:1] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
+filelist=filelist[:10] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
 
 
 np.set_printoptions(threshold=sys.maxsize) #So that arrays actually get printed                                                                                                                                                                                                                                           
@@ -76,7 +73,7 @@ def generate_training_data(filelist):
 
         inputdata = h5py.File(file, 'r')
 
-        print(np.shape(inputdata['event_label']))
+        #print(np.shape(inputdata['event_label']))
 
         for j in np.arange(np.shape(inputdata['event_label'])[0]):
 
@@ -99,8 +96,21 @@ def generate_training_data(filelist):
 
 x,y=generate_training_data(filelist)
 
-print(np.shape(x),np.shape(y))
+#print(np.shape(x),np.shape(y))
 
-print(x[0])
+#print(x[0])
 
-print(y)
+#print(y)
+
+print("Creating training and testing arrays")
+
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=10000)
+
+print(X_train[0])
+print(X_test[0])
+print(Y_train[0])
+print(X_test[0])
+
+return [X_train, X_test, Y_train, Y_test]
+
+
