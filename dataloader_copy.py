@@ -111,6 +111,4 @@ print(X_test[0])
 print(Y_train[0])
 print(X_test[0])
 
-return [X_train, X_test, Y_train, Y_test]
-
 
