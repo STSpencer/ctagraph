@@ -4,7 +4,7 @@ import glob
 import sys
 from sklearn.model_selection import train_test_split
 
-filelist = sorted(glob.glob('/home/ir-spen1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
+filelist = sorted(glob.glob('/home/ir-jaco1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
 
 
 filelist=filelist[:10] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
