@@ -2,6 +2,7 @@ import h5py
 import numpy as np
 import glob
 import sys
+from sklearn.model_selection import train_test_split
 
 filelist = sorted(glob.glob('/home/ir-spen1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
 
