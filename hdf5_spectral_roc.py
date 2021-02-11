@@ -127,7 +127,7 @@ def generate_training_data(filelist):
         inputdata = h5py.File(file, 'r')
         #print(np.shape(inputdata['event_label']))
         for j in np.arange(np.shape(inputdata['event_label'])[0]):
-            chargearr = inputdata['raw_images'][j, 0, :]
+            chargearr = inputdata['squared_training'][j, 0, : , :]
             #print(chargearr, cam_squaremaker(chargearr),np.shape(chargearr)) #Uncomment to actually print out array values                                                                                                                                                                                               
             labelsarr = inputdata['event_label'][j]
             chargearr=np.nan_to_num(chargearr)
