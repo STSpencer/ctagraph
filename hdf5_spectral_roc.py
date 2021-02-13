@@ -29,7 +29,7 @@ K = keras.backend
 MNIST_SIZE = 48
 
 filelist = sorted(glob.glob('/home/ir-jaco1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
-filelist=filelist[:1] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
+filelist=filelist[:2] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
 np.set_printoptions(threshold=sys.maxsize) #So that arrays actually get printed
 
 def get_confusion_matrix_one_hot_tc(runname,model_results, truth):
@@ -123,9 +123,11 @@ def generate_training_data(filelist):
     """
     allcharges=[]
     alllabels=[]
+    events = 0
     for file in filelist:
         inputdata = h5py.File(file, 'r')
-        #print(np.shape(inputdata['event_label']))
+        events += len(inputdata['event_label'])
+        print("SHAPE IS: %d" % np.shape(inputdata['event_label']))
         for j in np.arange(np.shape(inputdata['event_label'])[0]):
             chargearr = inputdata['squared_training'][j, 0, : , :]
             #print(chargearr, cam_squaremaker(chargearr),np.shape(chargearr)) #Uncomment to actually print out array values                                                                                                                                                                                               
@@ -135,6 +137,7 @@ def generate_training_data(filelist):
             allcharges.append(chargearr)
             alllabels.append(labelsarr)
     allcharges=np.asarray(allcharges)
+    print("TOTAL NUMBER OF EVENTS IS: %d" % events)
     alllabels=np.asarray(alllabels)
     return allcharges, alllabels
 
@@ -305,7 +308,7 @@ channels = 16           # Number of channels in the first layer
 cheb_k = 2              # Max degree of the Chebyshev approximation
 support = cheb_k + 1    # Total number of filters (k + 1)
 learning_rate = 1e-2
-epochs = 2
+epochs = 1
 batch_size = 64
 
 N_samples = X_train.shape[0]  # Number of samples in the training dataset
@@ -384,6 +387,4 @@ predictions = np.asarray(predictions)
 flat_predictions = list(np.concatenate(predictions).flat)
 
 get_confusion_matrix_one_hot_tc(runname, flat_predictions, y_val)
-
-
 
