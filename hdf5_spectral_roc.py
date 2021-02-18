@@ -29,7 +29,7 @@ K = keras.backend
 MNIST_SIZE = 48
 
 filelist = sorted(glob.glob('/home/ir-jaco1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
-filelist=filelist[:2] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
+filelist=filelist[:1] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
 np.set_printoptions(threshold=sys.maxsize) #So that arrays actually get printed
 
 def get_confusion_matrix_one_hot_tc(runname,model_results, truth):
@@ -43,13 +43,17 @@ def get_confusion_matrix_one_hot_tc(runname,model_results, truth):
         mr.append(np.argmax(x))
         mr2.append(x)
         if np.argmax(x)==0:
-            mr3.append(1-x[np.argmax(x)])
-#             mr3.append(1 - np.argmax(x))
+#            mr3.append(1-x[np.argmax(x)])
+            mr3.append(1 - np.argmax(x))
         elif np.argmax(x)==1:
-            mr3.append(x[np.argmax(x)])
-#             mr3.append(np.argmax(x))
+#            mr3.append(x[np.argmax(x)])
+             mr3.append(np.argmax(x))
     model_results=np.asarray(mr)
     truth=np.asarray(truth)
+    print("model_results")
+    print(len(np.rint(np.squeeze(model_results))))
+    print("truth")
+    print(len(truth))
     
     cm=confusion_matrix(y_target=truth,y_predicted=np.rint(np.squeeze(model_results)),binary=True)
     print(y_target.len())
@@ -176,6 +180,8 @@ def load_data(k=8, noise_level=0.0):
     X_train = X_train.reshape(-1, MNIST_SIZE ** 2)
     X_test = X_test.reshape(-1, MNIST_SIZE ** 2)
     X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.5)
+    print("y_val")
+    print(len(y_val))
     return X_train, y_train, X_val, y_val, X_test, y_test, A
 
 def _grid_coordinates(side):
@@ -376,6 +382,13 @@ for a in range(test_samples // batch_size):
 
     pred=model.predict_on_batch([X_test[beg:end]] + A_train)
     predictions.append(pred)
+    print("New iteration")
+    print("a")
+    print(a)
+    print("pred")
+    print(pred.shape)
+    print("predictions")
+    print(len(predictions))
     
     beg = a*batch_size
     end = (a+1) * batch_size
@@ -385,6 +398,8 @@ for a in range(test_samples // batch_size):
 
 predictions = np.asarray(predictions)
 flat_predictions = list(np.concatenate(predictions).flat)
+print("flat_predictions")
+print(len(flat_predictions))
 
 get_confusion_matrix_one_hot_tc(runname, flat_predictions, y_val)
 
