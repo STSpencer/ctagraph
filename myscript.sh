@@ -1,13 +1,12 @@
 #!/bin/bash
 
-
 #SBATCH --account IRIS-IP007-GPU
 
 
 #SBATCH --partition pascal
 
 
-#SBATCH -t 00:10:00
+#SBATCH -t 20:00:00
 
 
 #SBATCH --nodes=1
@@ -25,10 +24,9 @@
 #SBATCH --cpus-per-task=1
 
 
-#SBATCH -o /home/ir-jaco1/output.txt
+#SBATCH -o /home/ir-jaco1/output_test1025.txt
 
-
-
+runname='test1025'
 
 
 module purge
@@ -42,14 +40,7 @@ module unload cuda/8.0
 
 module load python/3.6 cuda/10.1 cudnn/7.6_cuda-10.1 graphviz/2.40.1
 
-
-
-
-
 source /home/ir-jaco1/t2/bin/activate
+python /home/ir-jaco1/k4.py ${runname}
 
 
-
-
-
-python /home/ir-jaco1/mypy.py

@@ -29,7 +29,7 @@ K = keras.backend
 MNIST_SIZE = 48
 
 filelist = sorted(glob.glob('/home/ir-jaco1/rds/rds-iris-ip007/ir-jaco1/Data/*_0.hdf5')) #Only load in files with gammaflag=0                                                                                                                                                                                             
-#filelist=filelist[:25] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
+filelist=filelist[:50] #Restrict to only loading in 1 hdf5 file, change this cut to load in more                                                                                                                                                                                                                           
 np.set_printoptions(threshold=sys.maxsize) #So that arrays actually get printed
 
 def get_confusion_matrix_one_hot_tc(runname,model_results, truth):
@@ -135,7 +135,10 @@ def generate_training_data(filelist):
     alllabels=[]
     events = 0
     for file in filelist:
-        inputdata = h5py.File(file, 'r')
+        try:
+            inputdata = h5py.File(file, 'r')
+        except OSError:
+            continue
         events += len(inputdata['event_label'])
         print("SHAPE IS: %d" % np.shape(inputdata['event_label']))
         for j in np.arange(np.shape(inputdata['event_label'])[0]):
@@ -178,7 +181,7 @@ def load_data(k=8, noise_level=0.0):
 #    X_train, X_test = X_train / 255.0, X_test / 255.0 This is a normalization term, comment it out for the time being but remember it's there.
 
     x,y=generate_training_data(filelist)
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.5)
 
 #    X_train = (X_train-np.amin(X_train,axis=0))/(np.amax(X_train,axis=0)-np.amin(X_train,axis=0))
 #    X_test = (X_test-np.amin(X_test,axis=0))/(np.amax(X_test,axis=0)-np.amin(X_test,axis=0))
@@ -262,7 +265,7 @@ def plot_history(history):
 #    total_acc = 0
     av_loss = []
     av_acc = []
-    bin_size = 10
+    bin_size = 1000
     total_loss = 0
     total_acc = 0
 
@@ -371,10 +374,10 @@ fig.savefig("./mnist_eigen_"+runname+".png")
 
 # Parameters
 channels = 16           # Number of channels in the first layer
-cheb_k = 4              # Max degree of the Chebyshev approximation
+cheb_k = 3              # Max degree of the Chebyshev approximation
 support = cheb_k + 1    # Total number of filters (k + 1)
 learning_rate = 1e-2
-epochs = 50
+epochs = 15
 batch_size = 64
 
 N_samples = X_train.shape[0]  # Number of samples in the training dataset
@@ -400,7 +403,10 @@ graph_conv_1 = ChebConv(channels,
 graph_conv_2 = ChebConv(2 * channels,
                         activation='softmax',
                         use_bias=False)([graph_conv_1] + fltr_in)
-flatten = layers.Flatten()(graph_conv_2)
+graph_conv_3 = ChebConv(2 * channels,
+                        activation='softmax',
+                        use_bias=False)([graph_conv_2] + fltr_in)
+flatten = layers.Flatten()(graph_conv_3)
 output = layers.Dense(2, activation='sigmoid')(flatten)
 
 # Build model
@@ -436,6 +442,7 @@ for epoch in range(epochs):
 
 fig = plot_history(history)
 fig.savefig("./history_mnist_"+runname+".png")
+np.save("./"+runname+"history.npy", history)
 
 
 print('Evaluating model.\n')  # Evaluate model
@@ -443,6 +450,9 @@ print('Evaluating model.\n')  # Evaluate model
 predictions=[]
 progbar = tensorflow.keras.utils.Progbar(test_samples, verbose=2)  # create fancy keras progressbar
 for a in range(test_samples // batch_size):
+    
+    beg = a*batch_size
+    end = (a+1) * batch_size
 
     pred=model.predict_on_batch([X_test[beg:end]] + A_train)
     predictions.append(pred)
@@ -454,11 +464,12 @@ for a in range(test_samples // batch_size):
     print(pred.shape)
     print("predictions")
     print(len(predictions))
+
     
-    beg = a*batch_size
-    end = (a+1) * batch_size
     eval_loss, eval_acc = model.test_on_batch([X_test[beg:end]] + A_train, y_test[beg:end])
     progbar.add(batch_size, values=[("eval loss", eval_loss), ("acc", eval_acc)])  # update fancy keras progress bar
+
+    print("eval loss: %d, eval acc: %d" % (eval_loss, eval_acc))
 
 
 predictions = np.asarray(predictions)
